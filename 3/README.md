@@ -108,11 +108,13 @@ Congratulations!
 
 
 **Hint**: De Bruijns sequence generator: http://www.hakank.org/comb/debruijn.cgi
+
 Also, check Wikipedia: https://en.wikipedia.org/wiki/De_Bruijn_sequence
 
 ### Objective completion
 
 You need to insert the correct code at https://doorpasscoden.kringlecastle.com/ which happens to be a De Bruijn code.
+
 Open the browser debug console and click on the symbols: you'll se the cyclic append of symbols:
 
 ```
@@ -147,7 +149,7 @@ Open the De Bruijn code generator and set it for k=4, n=4 to obtain the sequence
 0 0 0 0 1 0 0 0 2 0 0 0 3 0 0 1 1 0 0 1 2 0 0 1 3 0 0 2 1 0 0 2 2 0 0 2 3 0 0 3 1 0 0 3 2 0 0 3 3 0 1 0 1 0 2 0 1 0 3 0 1 1 1 0 1 1 2 0 1 1 3 0 1 2 1 0 1 2 2 0 1 2 3 0 1 3 1 0 1 3 2 0 1 3 3 0 2 0 2 0 3 0 2 1 1 0 2 1 2 0 2 1 3 0 2 2 1 0 2 2 2 0 2 2 3 0 2 3 1 0 2 3 2 0 2 3 3 0 3 0 3 1 1 0 3 1 2 0 3 1 3 0 3 2 1 0 3 2 2 0 3 2 3 0 3 3 1 0 3 3 2 0 3 3 3 1 1 1 1 2 1 1 1 3 1 1 2 2 1 1 2 3 1 1 3 2 1 1 3 3 1 2 1 2 1 3 1 2 2 2 1 2 2 3 1 2 3 2 1 2 3 3 1 3 1 3 2 2 1 3 2 3 1 3 3 2 1 3 3 3 2 2 2 2 3 2 2 3 3 2 3 2 3 3 3 3 (0 0 0) 
 ```
 
-Now you can insert the codes in sequence by hand or write a python script (see `bru.py`) to do the job for you:
+Now you can insert the codes in sequence by hand or write a python script (see [`bru.py`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/3/bru.py)) to do the job for you:
 
 ```
 # python bru.py
