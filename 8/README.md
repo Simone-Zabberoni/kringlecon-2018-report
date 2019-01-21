@@ -143,7 +143,9 @@ const options = {
 ```
 These are interesting constants. 
 The application has a developer mode, which is active (`dev_mode = true`). 
+
 The dev mode also enable a `keylog`, whose file name is defined by the environment variable `SSLKEYLOGFILE` and its path is defined by the `DEV` environmental variable.
+
 Node manages directly the private and pub keys, which are under `__dirname + '/keys/'`
 
 Next thing to check, the http route mappings that binds urls to local directories:
@@ -241,18 +243,36 @@ CLIENT_RANDOM 27489166DD50BE9EBE6D7F5E4F14E94133FD18A1148BECAC8486F70BFC8257F6 9
 ```
 
 Good, now back to Packalyzer let's click "sniff traffic" and download the current capture.
-We need to instruct wireshark to use the keylog to decrypt the capture, as described [here](https://wiki.wireshark.org/SSL) and [here](https://jimshaver.net/2015/02/11/decrypting-tls-browser-traffic-with-wireshark-the-easy-way/): now we can see plain http2 (see `3_wireshark_decrypted_first_pcap.png` and `4_wireshark_decrypted_first_pcap_http2.png`)!
 
-There are a couple useful filters we can apply (`http2`, `http2.data.data` etc) but this is http traffic and `json` is there the "good stuff" flows: in `5_wireshark_decrypted_first_pcap_json.png` we got Alabaster's password!
+We need to instruct wireshark to use the keylog to decrypt the capture, as described [here](https://wiki.wireshark.org/SSL) and [here](https://jimshaver.net/2015/02/11/decrypting-tls-browser-traffic-with-wireshark-the-easy-way/): now we can see plain http2:
+
+![3_wireshark_decrypted_first_pcap.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/3_wireshark_decrypted_first_pcap.png)
+
+![4_wireshark_decrypted_first_pcap_http2.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/4_wireshark_decrypted_first_pcap_http2.png)
+
+
+There are a couple useful filters we can apply (`http2`, `http2.data.data` etc) but this is http traffic and `json` is there the "good stuff" flows: 
+
+![5_wireshark_decrypted_first_pcap_json.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/5_wireshark_decrypted_first_pcap_json.png)
+
+And we got Alabaster's password!
 
 ```
 {"username": "alabaster", "password": "Packer-p@re-turntable192"}
 ```
 
-There are other good json and passwords in here, but Alabaster is our primary target! 
-If we login into packalizer with his credential we will find a "super_secret_packet_capture.pcap" (see `6_alabaster_good_stuff.png`) named `upload_2a4a5ae98007cb261119b208bf9369ef.pcap`.
+There are other good json and passwords in here, but Alabaster is our **primary** target! 
 
-The capture contains a single SMTP session (see `7_alabaster_capture.png`) which contains a message from Holly Evergreen with a base 64 encoded file:
+If we login into packalizer with his credential we will find a "super_secret_packet_capture.pcap" named `upload_2a4a5ae98007cb261119b208bf9369ef.pcap`:
+
+![6_alabaster_good_stuff.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/6_alabaster_good_stuff.png)
+
+
+The capture contains a single SMTP session:
+
+![7_alabaster_capture.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/7_alabaster_capture.png)
+ 
+ which contains a message from Holly Evergreen with a base 64 encoded file:
 
 ```
 220 mail.kringlecastle.com ESMTP Postfix (Ubuntu)
