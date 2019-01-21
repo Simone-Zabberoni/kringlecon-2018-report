@@ -98,6 +98,7 @@ Congratulations!
 
 
 **Hint**: CSV Injection: https://www.owasp.org/index.php/CSV_Injection
+
 **Hint**: CSV DDE Injection talk: https://www.youtube.com/watch?v=Z3qpcKVv2Bg
 
 
@@ -134,6 +135,7 @@ https://careers.kringlecastle.com/public/'file name you are looking for'
 ```
 
 So there's a direct mapping from `https://careers.kringlecastle.com/public/` and the directory `C:\careerportal\resources\public\`.
+
 We need to craft a CSV injection that copies `candidate_evaluation.docx` in the right place, send it and wait a few minutes for an Elf to open it (and ignores the warning, we hope!).
 
 
