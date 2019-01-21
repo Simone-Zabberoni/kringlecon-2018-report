@@ -1,6 +1,6 @@
 
 # KringleCon - SANS Christmas Hacking Challenge writeup - Simone Zabberoni
-
+ 
 ## Links
 
 Game interface and badges: https://kringlecon.com/badge?section=objectives
