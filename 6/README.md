@@ -208,6 +208,7 @@ Ok, we have a user badge with a QR code and a web page with a camera scanner or 
 Remember to **alwyas** keep the browser's debug console open!
 
 The first try is to pass the QR code from Alabaster's badge: 
+
 ![alabaster_badge.jpg](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/6/alabaster_badge.jpg)
 
 I use [Lightshot](https://app.prntscr.com/) to capture and save the QR as `alabaster_qr_code.png` then pass it to the scanner via USB but: **Authorized User Account Has Been Disabled!**
@@ -223,11 +224,15 @@ Return value:
 ```
 
 What's in the QR code? We can upload it [here](https://online-barcode-reader.inliteresearch.com/) and decode it to `
-oRfjg5uGHmbduj2m`. That's not HEX nor base64, that's probably a user ID which is used in the backend to authenticate.
+oRfjg5uGHmbduj2m`: that's not HEX nor base64, that's probably a user ID which is used in the backend to authenticate.
 
 Following the hint, it's time to test for SQL Injection! We'll [craft](https://www.patrick-wied.at/static/qrgen/) some new QR code and try to figure out the authentication process and bypass it.
 
-First test: inject something to throw an error, for instance `'someRandomStuff+` (see `syntax_error_qr_code.png`) and pass it to the scanner:
+First test: inject something to throw an error, for instance `'someRandomStuff+`
+
+![syntax_error_qr_code.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/6/syntax_error_qr_code.png)
+
+and pass it to the scanner:
 
 ```
 {"data":"EXCEPTION AT (LINE 96 \"user_info = query(\"SELECT first_name,last_name,enabled FROM employees WHERE authorized = 1 AND uid = '{}' LIMIT 1\".format(uid))\"): (1064, u\"You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'someRandomStuff' LIMIT 1' at line 1\")","request":false}
