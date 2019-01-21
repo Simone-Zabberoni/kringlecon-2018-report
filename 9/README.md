@@ -156,7 +156,7 @@ Congratulations! You've won, and have successfully completed this challenge.
 
 This is a multistage objective.
 
-####Question 9 - Snort rules
+#### Question 9 - Snort rules
 
 > To start, assist Alabaster by accessing (clicking) the snort terminal below:
 > Then create a rule that will catch all new infections. What is the success message displayed by the Snort terminal?
