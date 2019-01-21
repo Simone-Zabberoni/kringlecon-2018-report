@@ -446,6 +446,8 @@ Before moving on to the malware itself, we now know the domain from where the ma
 
 First things firts, we need to make [`wannacookie-malware.ps1`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/wannacookie-malware.ps1) readable with indentations (I use regex mostly), then understand the main structure of the malware.
 
+**Hint**: we are working on the minified version of the malware... maybe g_o_dns with a non-minified filename will yeald something interesting :)
+
 We have various function definitions, a first broad look:
 
 - e_d_file: file encryption and decryption routine. Use a symmetric AES key
