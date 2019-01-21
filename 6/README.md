@@ -283,19 +283,21 @@ LIMIT
   1                 <- returns only one row
 ```
 
-This query will return a single row (because of `LIMIT`) with an authorized user, the first found. We don't know if the returned user is also enabled, but it's worth a shot (see `one_eq_one_qr_code.png`):
+This query will return a single row (because of `LIMIT`) with an authorized user, the first found. We don't know if the returned user is also enabled, but it's worth a shot:
+
+![one_eq_one_qr_code.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/6/one_eq_one_qr_code.png)
 
 ```
 {"data":"Authorized User Account Has Been Disabled!","request":false}
 ```
 
-but the returned account is not enabled!
+Bad, but the returned account is not enabled!
+
 We need to inject not a where clause but a **new** select, to pick up an enabled account. Also, because of the `LIMIT 1` we need to be sure that only out injected select returns data.
 
 We need a [UNION](https://www.w3schools.com/sql/sql_union.asp) SELECT:
 
 > The UNION operator is used to combine the result-set of two or more SELECT statements.
-
 > Each SELECT statement within UNION must have the same number of columns
 > The columns must also have similar data types
 > The columns in each SELECT statement must also be in the same order
@@ -325,6 +327,7 @@ Use a [SQL validator](https://www.eversql.com/sql-syntax-check-validator/) to be
 ```
 
 The first single quote of the injection keeps us sure to "void" the original select by setting the WHERE clause to `AND uid = ''`.
+
 The last single quote will match the closing single quote of the original SQL, enclosing the '1' of our `and enabled` clause.   
 
 The resulting query is valid and seems to fit our purpose:
@@ -357,9 +360,13 @@ LIMIT
   1
 ```
 
-Craft it (see `bypass_qr_code.png`) and pass it to the scanner: **User Access Granted**
+Craft it:
 
-And in the json response there's the required control number: 
+![bypass_qr_code.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/6/bypass_qr_code.png)
+  
+and pass it to the scanner: **User Access Granted**
+
+In the json response there's the required control number: 
 
 ```
 {"data":"User Access Granted - Control number 19880715","request":true,"success":{"hash":"ff60055a84873cd7d75ce86cfaebd971ab90c86ff72d976ede0f5f04795e99eb","resourceId":"false"}}
