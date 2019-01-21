@@ -139,7 +139,7 @@ So there's a direct mapping from `https://careers.kringlecastle.com/public/` and
 We need to craft a CSV injection that copies `candidate_evaluation.docx` in the right place, send it and wait a few minutes for an Elf to open it (and ignores the warning, we hope!).
 
 
-The CSV is quite simple, it contains the injection only (see `inject.csv`):
+The CSV is quite simple, it contains the injection only (see [`inject.csv`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/7/inject.csv)):
 ```
 =cmd|' /C copy C:\candidate_evaluation.docx C:\careerportal\resources\public'!A1
 ```
@@ -148,7 +148,7 @@ The CSV is quite simple, it contains the injection only (see `inject.csv`):
 
 Time to send our crafted CSV with the career application form, wait a few minutes then try https://careers.kringlecastle.com/public/candidate_evaluation.docx: download it!
 
-The bad guy's name is quite "known", read through the file to get the name of the terrorist organization.
+The bad guy's name is quite "known", read through [`candidate_evaluation.docx`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/7/candidate_evaluation.docx)  to get the name of the terrorist organization.
 
 
 

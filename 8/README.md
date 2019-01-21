@@ -118,7 +118,7 @@ The index contains a quite interesting comment:
 
 We're dealing with a node application and we know the main name (`app.js`). If we're lucky, the file could be in one of the html available paths
 
-Browsing https://packalyzer.kringlecastle.com/app.js returns a `Not found`, but https://packalyzer.kringlecastle.com/pub/app.js returns the full backend code! Let's see...
+Browsing https://packalyzer.kringlecastle.com/app.js returns a `Not found`, but https://packalyzer.kringlecastle.com/pub/app.js returns the full backend code! Let's look inside of [`app.js`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/app.js)...
 
 
 ```
@@ -326,7 +326,7 @@ file attach_from_Holly_Evergreen.pdf
 attach_from_Holly_Evergreen.pdf: PDF document, version 1.5
 ```
 
-Read through the pdf and you will discover the name of the song!
+Read through the [`attach_from_Holly_Evergreen.pdf`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/attach_from_Holly_Evergreen.pdf) and you will discover the name of the song!
 
 
 

@@ -518,7 +518,7 @@ So the domain `yippeekiyaa.aaay` is the kill switch, register it on HoHoHo Daddy
 
 > After activating the kill-switch domain in the last question, Alabaster gives you a zip file with a memory dump and encrypted password database. Use these files to decrypt Alabaster's password database. What is the password entered in the database for the Vault entry?
 
-The zip files contains the encrypted [`alabaster_passwords.elfdb.wannacookie`]((https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/alabaster_passwords.elfdb.wannacookie) and the memory dump of the infected machine: the decryption key should be somewhere inside it, but we must know how it's created, its lenght etc...
+The zip files contains the encrypted [`alabaster_passwords.elfdb.wannacookie`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/alabaster_passwords.elfdb.wannacookie) and the memory dump of the infected machine: the decryption key should be somewhere inside it, but we must know how it's created, its lenght etc...
 
 
 So, let's dig deeper into `wanc`: we have some variable declarations first:
