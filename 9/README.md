@@ -444,7 +444,7 @@ Before moving on to the malware itself, we now know the domain from where the ma
 > What is the full sentence text that appears on the domain registration success message (bottom sentence)?
 
 
-First things firts, we need to make `wannacookie-malware.ps1` readable with indentations (I use regex mostly), then understand the main structure of the malware.
+First things firts, we need to make [`wannacookie-malware.ps1`](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/9/wannacookie-malware.ps1) readable with indentations (I use regex mostly), then understand the main structure of the malware.
 
 We have various function definitions, a first broad look:
 
