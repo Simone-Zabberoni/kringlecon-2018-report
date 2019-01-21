@@ -1,5 +1,5 @@
 
-# KringleCon - SANS Christmas Hacking Challenge
+# KringleCon - SANS Christmas Hacking Challenge writeup - Simone Zabberoni
 
 ## Links
 
@@ -10,13 +10,12 @@ History and answers: https://www.holidayhackchallenge.com/2018/story.html
 
 ## Report Format
 
-Each objective has its own directory with its own N.md file describing all the steps for each objective and challenge.
+Each objective has its own directory with its own `README.md` file describing all the steps for each objective and challenge.
 
 
-## TL;DR Report
-
-#### Objective 1
+#### [Objective 1](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/1/README.md)
 Read through the old CFPs to answer the questions.
+
 Answer: `Happy Trails`
 
 #### Objective 2
