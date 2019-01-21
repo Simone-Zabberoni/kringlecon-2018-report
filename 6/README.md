@@ -126,7 +126,8 @@ elf@22953d27aeb7:~$ evtx_dump.py ho-ho-no.evtx | grep 4625 -A 50 | grep -i ipadd
     211 <Data Name="IpAddress">172.31.254.101</Data>
 ```
 
-Bingo! We have one probably legitimate logon failure and 211 failures from a specifi Ip.
+Bingo! We have one probably legitimate logon failure and 211 failures from a specific Ip.
+
 Now we need to find any username which has **successfully** logged on from the attaccker's ip address: 
 ```
 elf@22953d27aeb7:~$ evtx_dump.py ho-ho-no.evtx | grep 4624 -A 50 | grep "172.31.254.101" -B 50 | grep "TargetUserName"
@@ -197,6 +198,7 @@ Congratulations!
 
 
 **Hint**: SQL Injection for authentication bypass: https://www.owasp.org/index.php/SQL_Injection_Bypassing_WAF#Auth_Bypass
+
 **Hint**: QR Code online generator: https://www.the-qrcode-generator.com/
 
 
@@ -205,7 +207,10 @@ Congratulations!
 Ok, we have a user badge with a QR code and a web page with a camera scanner or a USB stick (which accepts PNG images).
 Remember to **alwyas** keep the browser's debug console open!
 
-The first try is to pass the QR code from Alabaster's badge: I use Lightshot](https://app.prntscr.com/) to capture and save the QR as `alabaster_qr_code.png` then pass it to the scanner via USB: **Authorized User Account Has Been Disabled!**
+The first try is to pass the QR code from Alabaster's badge: 
+![alabaster_badge.jpg](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/6/alabaster_badge.jpg)
+
+I use [Lightshot](https://app.prntscr.com/) to capture and save the QR as `alabaster_qr_code.png` then pass it to the scanner via USB but: **Authorized User Account Has Been Disabled!**
 
 The message is returned by the server via json:
 
