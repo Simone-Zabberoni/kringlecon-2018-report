@@ -85,16 +85,26 @@ You escaped! Congratulations!
 Access https://packalyzer.kringlecastle.com/: we don't have an account, so let's register one and log in.
 
 Via this web interface we can sniff traffic, upload PCAPs, dowload archived PCAPs and get a summary of the capture.
-Let's start by downloading (`1_download_pcap.png`) the current capture (`78535506_3-1-2019_23-37-21.pcap`)
+Let's start by downloading the current capture (`78535506_3-1-2019_23-37-21.pcap`):
 
-The file is a standard tcpdump capture file, the bad news is that all the traffic is https encrypted (see `2_wireshark_first_pcap`).
+![1_download_pcap.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/1_download_pcap.png)
+
+
+The file is a standard tcpdump capture file, the bad news is that all the traffic is https encrypted:
+
+![2_wireshark_first_pcap.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/2_wireshark_first_pcap.png)
+
 Wireshark could decrypt it:
 - with a debug keylog  file, as hinted in the talk
 - with the private ssl key
 
 Usually the key is stored on the web server, available to the apache/nginx server or directly to the application (node/flask etc.)
 
-After a look at the structure (`packalizer_app_web_files.png`), let's search the code for useful stuff:
+After a look at the structure: 
+
+![packalizer_app_web_files.png](https://github.com/Simone-Zabberoni/kringlecon-2018-report/blob/master/8/packalizer_app_web_files.png)
+
+let's search the code for useful stuff:
 - standard js files (ie: jquery) we could ignore
 - custom js files: comments, api entry points
 - index: additional javascript, comments
